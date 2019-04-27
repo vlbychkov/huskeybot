@@ -1,7 +1,2 @@
 telebot
-datetime
-time
-random
-os
-random
 sqlite3
