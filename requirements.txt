@@ -1,2 +1,2 @@
-telebots
+pytelegrambotapi
 sqlite3
