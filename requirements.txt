@@ -2,4 +2,4 @@ telebot
 datetime
 time
 random
-qlite
+sqlite
