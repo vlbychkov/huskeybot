@@ -1,2 +1,2 @@
 telebot
-sqlite3
+sqlite3==2.6.0
