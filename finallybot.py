@@ -227,8 +227,6 @@ def newCommand(message):
 		passwordCommand = int(message.text)
 		if passwordCommand =="-" or passwordCommand =='exit' or passwordCommand=="Exit" or passwordCommand =="Выход" or passwordCommand == 'выход':
 			bot.send_message(message.chat.id, "Ладно.")
-		elif any(x for x in wordUp if x in passwordCommand)==True:
-			bot.send_message(message.chat.id, "Ты ввел не пароль. Обратись к команде /setdate еще раз.")
 		else:
 			msg = bot.send_message(message.chat.id,"""Хорошо, сообщи своим товарищам из команды, чтобы они смогли посмотреть даты. Но не сообщай другим людям!
 Теперь напиши, когда проходит твое событие в формате ДД.ММ.ГГ . Пример: 20.07.19 или 20.07.2019.""")
