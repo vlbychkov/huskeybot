@@ -13,6 +13,8 @@ bot = telebot.TeleBot(TOKEN)
 menu_remove=types.ReplyKeyboardRemove() 
 maneTimeDate = datetime.datetime.today().strftime("%d.%m.%Y")
 maneDate=datetime.datetime.today().strftime("%m")
+maneYear=datetime.datetime.today().strftime("%Y")
+maneyear=datetime.datetime.today().strftime("%y")
 index = 0
 massivDate = []
 wordUp = set('qwertyuiopasdfghjklzxcvbnmаоуыэяеёюибвгдйжзклмнпрстфхцчшщQWERTYUIOPASDFGHJKLZXCVBNMАОУЫЭЯЕЁЮИБВГДЙЖЗКЛМНПРСТФХЦЧШЩ')
@@ -194,15 +196,15 @@ def OMl(message):
 
 @bot.message_handler(commands=['setdate',"установкадаты"])
 def whatscommands(message):
-	msg=bot.send_message(message.chat.id, "Название твоей команды? ")
+	msg=bot.send_message(message.chat.id, "Введи название твоей команды. Если твоей команды нет в списке Базы данных, то Бот перенаправит тебя на регистрацию. ")
 	bot.register_next_step_handler(msg, ifnameCommand)
-	bot.send_message(message.chat.id, "Если ты передумал вводить на каком-либо этапе, то введи '-' или напиши 'Выход'")
+	bot.send_message(message.chat.id, "Если ты передумал вводить что-то на каком-либо этапе, то введи '-' или напиши 'Выход'.")
 def ifnameCommand(message):
 	index=0
 	global nameCommand
 	nameCommand = message.text
 	if any(x for x in '/' if x in nameCommand)==True:
-		bot.send_message(message.chat.id,"Ты ввел команду для бота, а не название своей команды.  Обратись к команде /setdate еще раз.")
+		bot.send_message(message.chat.id,"Ты ввел команду для бота, а не название своей команды. Обратись к команде /setdate еще раз.")
 	elif nameCommand =="-" or nameCommand =="exit" or nameCommand=="выход" or nameCommand=="Выход":
 		bot.send_message(message.chat.id, "Ладно.")
 	else:
@@ -221,15 +223,18 @@ def ifnameCommand(message):
 				bot.register_next_step_handler(msg, newCommand)
 def newCommand(message):
 	global passwordCommand
-	passwordCommand = message.text
-	if passwordCommand =="-" or passwordCommand =='exit' or passwordCommand=="Exit" or passwordCommand =="Выход" or passwordCommand == 'выход':
-		bot.send_message(message.chat.id, "Ладно.")
-	elif any(x for x in wordUp if x in passwordCommand)==True:
-		bot.send_message(message.chat.id, "Ты ввел не пароль. Обратись к команде /setdate еще раз.")
-	else:
-		msg = bot.send_message(message.chat.id,"""Хорошо, сообщи своим товарищам из команды, чтобы они смогли посмотреть даты. Но не сообщай другим людям!
-Теперь напиши, когда проходит твое событие в формате ДД.ММ.ГГ . Пример: 20.07.19""")
-		bot.register_next_step_handler(msg, whatsEvent)
+	try:
+		passwordCommand = int(message.text)
+		if passwordCommand =="-" or passwordCommand =='exit' or passwordCommand=="Exit" or passwordCommand =="Выход" or passwordCommand == 'выход':
+			bot.send_message(message.chat.id, "Ладно.")
+		elif any(x for x in wordUp if x in passwordCommand)==True:
+			bot.send_message(message.chat.id, "Ты ввел не пароль. Обратись к команде /setdate еще раз.")
+		else:
+			msg = bot.send_message(message.chat.id,"""Хорошо, сообщи своим товарищам из команды, чтобы они смогли посмотреть даты. Но не сообщай другим людям!
+Теперь напиши, когда проходит твое событие в формате ДД.ММ.ГГ . Пример: 20.07.19 или 20.07.2019.""")
+			bot.register_next_step_handler(msg, whatsEvent)
+	except ValueError as e:
+		bot.send_message(message.chat.id, "Ты ввел не пароль. Перепроверь пароль и обратись к команде /setdate еще раз. ")
 
 def OPL(message):
 	index=0
@@ -252,7 +257,7 @@ def OPL(message):
 					bot.register_next_step_handler(msg, whatsEvent)
 				elif index==0:
 					bot.send_message(message.chat.id, "Твоей команды нет в списке. Обратись к /setdate . ")
-	except ValueError as e:
+	except ValueError:
 		pass
 def whatsEvent(message):
 	try:	
@@ -260,13 +265,13 @@ def whatsEvent(message):
 		global nameCommand
 		global nameDate
 		nameDate = message.text
-		if len(nameDate)!=8:
+		if (len(nameDate)!=8 and len(nameDate)!=10):
 			bot.send_message(message.chat.id, "Ты ввел не ту дату. Она должна быть в формате ДД.ММ.ГГ . Исправь. Используй команду /setdate ещё раз. ")
 		elif nameDate == "-" or nameDate == "Выход" or nameDate == "выход":
 			bot.send_message(message.chat.id, "Ладно.")
 		elif any(x for x in wordUp if x in nameDate)==True:
 			bot.send_message(message.chat.id, "Ты ввел не дату.")
-		else:
+		elif nameDate[6:]>=maneYear or maneDate>=maneyear[6:] or nameDate>=maneDate:
 			msg = bot.send_message(message.chat.id, "А как называется событие? ")
 			bot.register_next_step_handler(msg, writeAll)
 	except ValueError as e:
@@ -292,7 +297,6 @@ def writeAll(message):
 			bot.send_message(message.chat.id, "Готово!!!")
 	except ValueError as e:
 		pass
-
 #_______________________________________________________________________________________________________________________________________________________________
 
 @bot.message_handler(commands=['cpass'])
