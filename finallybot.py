@@ -72,7 +72,7 @@ def handle_time(message):
 def test(message):
 	if message.chat.type=='group':
 		bot.send_message(message.chat.id, bot.get_updates())
-	if message.chat.type == "supergroup":
+	elif message.chat.type == "supergroup":
 		bot.send_message(message.chat.id, bot.get_me())
 		bot.send_message(message.chat.id, bot.get_updates())
 #_______________________________________________________________________________________________________________________________________________________________
