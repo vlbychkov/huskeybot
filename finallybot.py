@@ -70,7 +70,8 @@ def handle_time(message):
 #_______________________________________________________________________________________________________________________________________________________________
 @bot.message_handler(commands=['test'])
 def test(message):
-	bot.send_message(message.chat.id, bot.get_updates())
+	if message.chat.type=='group':
+		bot.send_message(message.chat.id, bot.get_updates())
 #_______________________________________________________________________________________________________________________________________________________________
 
 @bot.message_handler(commands=['monthdate','датанамесяц'])     # ВЫЗОВ КОМАНДЫ ДЛЯ ПОКАЗА ДАТЫ НА МЕСЯЦ
