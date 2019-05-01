@@ -59,6 +59,12 @@ def handle_end(message):
 	bot.reply_to(message, 'Ладно, сворачиваю панель. Чтобы снова вызвать - /start.',reply_markup=menu_remove)
 	print(message.from_user.first_name)
 #_______________________________________________________________________________________________________________________________________________________________
+
+@bot.message_handler(commands=['test'])
+def test(message):
+	bot.send_message(message.chat.id, bot.get_updates())
+
+#_______________________________________________________________________________________________________________________________________________________________
 #Вызов даты
 @bot.message_handler(commands=['time','время']) 
 def handle_time(message):
