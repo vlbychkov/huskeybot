@@ -72,6 +72,9 @@ def handle_time(message):
 def test(message):
 	if message.chat.type=='group':
 		bot.send_message(message.chat.id, bot.get_updates())
+	if message.chat.type == "supergroup":
+		bot.send_message(message.chat.id, bot.get_me())
+		bot.send_message(message.chat.id, bot.get_updates())
 #_______________________________________________________________________________________________________________________________________________________________
 
 @bot.message_handler(commands=['monthdate','датанамесяц'])     # ВЫЗОВ КОМАНДЫ ДЛЯ ПОКАЗА ДАТЫ НА МЕСЯЦ
