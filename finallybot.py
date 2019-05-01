@@ -68,14 +68,13 @@ def handle_time(message):
 
 	
 #_______________________________________________________________________________________________________________________________________________________________
-#@bot.message_handler(commands=['test'])
-#def test(message):
-#	if message.chat.type=='group':
-#		bot.send_message(message.chat.id, bot.get_updates())
-#	elif message.chat.type == "supergroup":
-#		bot.send_message(message.chat.id, bot.get_me())
-#		bot.send_message(message.chat.id, bot.get_updates())
-#_______________________________________________________________________________________________________________________________________________________________
+@bot.message_handler(commands=['test'])
+def test(message):
+	bot.send_message(message.chat.id, bot.chat.id)
+	bot.send_message(message.chat.id, bot.chat.type)
+	bot.send_message(message.chat.id, bot.chat.username)
+	bot.send_message(message.chat.id, bot.chat.title)
+_______________________________________________________________________________________________________________________________________________________________
 
 @bot.message_handler(commands=['monthdate','датанамесяц'])     # ВЫЗОВ КОМАНДЫ ДЛЯ ПОКАЗА ДАТЫ НА МЕСЯЦ
 def handle_okey(message):
