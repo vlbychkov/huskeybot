@@ -1,23 +1,9 @@
-import telebot
-import datetime
-import time # time.ctime()
-from telebot import types
-from telebot.types import Message
-import random
-import os
-import random
-import sqlite3
+from Lib import *
+from Other import *
 #нужные библиотеки
 TOKEN = '815806413:AAGh41rYw3mok9SvLPePMGjBrjAKX7zyvag'
 bot = telebot.TeleBot(TOKEN)
 menu_remove=types.ReplyKeyboardRemove() 
-maneTimeDate = datetime.datetime.today().strftime("%d.%m.%Y")
-maneDate=datetime.datetime.today().strftime("%m")
-maneYear=datetime.datetime.today().strftime("%Y")
-maneyear=datetime.datetime.today().strftime("%y")
-index = 0
-massivDate = []
-wordUp = set('qwertyuiopasdfghjklzxcvbnmаоуыэяеёюибвгдйжзклмнпрстфхцчшщQWERTYUIOPASDFGHJKLZXCVBNMАОУЫЭЯЕЁЮИБВГДЙЖЗКЛМНПРСТФХЦЧШЩ')
 
 #_______________________________________________________________________________________________________________________________________________________________
 
