@@ -5,4 +5,7 @@ maneYear=datetime.datetime.today().strftime("%Y")
 maneyear=datetime.datetime.today().strftime("%y")
 index = 0
 massivDate = []
+Command = []
+secondary = []
+a=''
 wordUp = set('qwertyuiopasdfghjklzxcvbnmаоуыэяеёюибвгдйжзклмнпрстфхцчшщQWERTYUIOPASDFGHJKLZXCVBNMАОУЫЭЯЕЁЮИБВГДЙЖЗКЛМНПРСТФХЦЧШЩ')
