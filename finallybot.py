@@ -9,8 +9,11 @@ City = ['Москва','СПб']
 #_______________________________________________________________________________________________________________________________________________________________
 @bot.message_handler(commands=['aoao'])
 def aoao(message):
-	for i in City:
-		bot.send_message(message.chat.id, i)
+	forCity=''
+	for listCity in City:
+		forCity=forCity+listCity+', '
+	fullListCity=forCity.rstrip(', ')
+	bot.send_message(message.chat.id, fullListCity)
 
 #Команды
 #Начало диалога + вызов кнопок
