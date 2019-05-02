@@ -9,7 +9,7 @@ City = ['Москва','СПб']
 #_______________________________________________________________________________________________________________________________________________________________
 @bot.message_handler(commands=['aoao'])
 def aoao(message):
-	bot.send_message(message.chat.id, City)
+	bot.send_message(message.chat.id, *City)
 
 #Команды
 #Начало диалога + вызов кнопок
