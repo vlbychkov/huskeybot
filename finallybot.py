@@ -13,6 +13,7 @@ menu_remove=types.ReplyKeyboardRemove()
 @bot.message_handler(commands=['start']) 
 def handle_start(message):
 	bot.send_message(message.chat.id,'Здравствуй, ' + str(message.from_user.first_name),reply_markup=markup )
+	bot.send_message(message.chat.id, "Этот Бот устроен по типу календаря. В него можно: Добавлять, удалять, изменять, смотреть даты.")
 	bot.send_message(message.chat.id, 'Используй /help, чтобы посмотреть все функции.')
 	print(message.from_user.first_name)
 
