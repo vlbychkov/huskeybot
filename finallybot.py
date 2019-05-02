@@ -4,9 +4,12 @@ from Other import *
 TOKEN = '815806413:AAGh41rYw3mok9SvLPePMGjBrjAKX7zyvag'
 bot = telebot.TeleBot(TOKEN)
 menu_remove=types.ReplyKeyboardRemove() 
+City = ['Москва','СПб']
 
 #_______________________________________________________________________________________________________________________________________________________________
-
+@bot.message_handler(commands=['aoao'])
+def aoao(message):
+	bot.send_message(message.chat.id, City)
 
 #Команды
 #Начало диалога + вызов кнопок
