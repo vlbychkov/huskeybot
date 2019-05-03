@@ -1,7 +1,7 @@
 from Lib import *
 from Other import *
 #нужные библиотеки
-TOKEN = '815806413:AAGh41rYw3mok9SvLPePMGjBrjAKX7zyvag'
+TOKEN = '815806413:AAF9qIka3JzDNOkH3oRYDPCcfSAqRX5_tJM'
 bot = telebot.TeleBot(TOKEN)
 menu_remove=types.ReplyKeyboardRemove() 
 
