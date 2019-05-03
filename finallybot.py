@@ -4,17 +4,62 @@ from Other import *
 TOKEN = '815806413:AAGh41rYw3mok9SvLPePMGjBrjAKX7zyvag'
 bot = telebot.TeleBot(TOKEN)
 menu_remove=types.ReplyKeyboardRemove() 
-City = ['Москва','СПб']
 
 #_______________________________________________________________________________________________________________________________________________________________
-@bot.message_handler(commands=['aoao'])
-def aoao(message):
-	forCity=''
-	for listCity in City:
-		forCity=forCity+listCity+', '
-	fullListCity=forCity.rstrip(', ')
-	bot.send_message(message.chat.id, fullListCity)
+@bot.message_handler(commands=['setcommand'])
+def setcommand(message):
+	msg = bot.send_message(message.chat.id, "Так-с, давай начнем с того, что ты должен написать название своей команды. ")
+	bot.register_next_step_handler(msg, setcommand2)
+def setcommand2(message):
+	global regCommand
+	regCommand=message.text
+	if regCommand=="-" or regCommand=="Выход" or regCommand=="выход":
+		pass
+	else:
+		msg = bot.send_message(message.chat.id, "А теперь укажи город, пожалуйста. ")
+		bot.register_next_step_handler(msg, setcommand3)
+def setcommand3(message):
+	global nameCity
+	nameCity=message.text
+	if nameCity=="-" or nameCity=="Выход" or nameCity=="выход":
+		pass
+	else:
+		with sqlite3.connect('CityandCommand.db') as con:
+			cur = con.cursor()
+			cur.execute("INSERT INTO CC (nameCommand, cityCommand) VALUES (?,?)",
+					(regCommand, nameCity))
+			con.commit()
+		bot.send_message(message.chat.id, "Готово. ")
 
+
+#_______________________________________________________________________________________________________________________________________________________________
+
+@bot.message_handler(commands=['lookcommand'])
+def lookcommand(message):
+	City=[]
+	command = []
+	index=0
+	commandCity = ''
+	with sqlite3.connect('CityandCommand.db') as con:
+		cur=con.cursor()
+		cur.execute("SELECT * FROM CC")
+		for row in cur.fetchall():
+			if row[1] not in City:
+				City.append(row[1])
+		print(City)
+		for i in City:
+			#print(i + ' AOAOAO')
+			cur.execute("SELECT * FROM CC")
+			command.append('\n'+i+": ")
+			for prow in cur.fetchall():
+				if i in prow[1]:
+					command.append(prow[0]+ ', ')
+	for i in command:
+		commandCity=commandCity+command[index]
+		index+=1
+	bot.send_message(message.chat.id, commandCity)
+
+#_______________________________________________________________________________________________________________________________________________________________
 #Команды
 #Начало диалога + вызов кнопок
 @bot.message_handler(commands=['start']) 
@@ -30,8 +75,10 @@ def handle_start(message):
 @bot.message_handler(commands=['help','помощь'])
 def handler_help(message):
 	bot.send_message(message.chat.id,"""Вижу, тебе нужна помощь...
-Смотри внимательней и запоминай:
-Это основные команды 
+Смотри внимательней и запоминай,
+Это основные команды:
+/setcommand - Добавить в Базу данных команду.
+/lookcommand - Просмотр всех команд и их города.
 /Инструкция или /instruction - Инструкция к использованию.
 /setdate или /установкадаты - Создай событие и установи его дату. 
 /lookdate или /ближдата - Просмотр ближайшего события и его даты.
