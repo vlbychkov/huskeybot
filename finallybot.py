@@ -57,7 +57,10 @@ def lookcommand(message):
 	for i in command:
 		commandCity=commandCity+command[index]
 		index+=1
-	bot.send_message(message.chat.id, commandCity)
+	if len(commandCity)==0:
+		bot.send_message(message.chat.id, "В Базе данных нет команд вообще. ")
+	else:
+		bot.send_message(message.chat.id, commandCity)
 
 #_______________________________________________________________________________________________________________________________________________________________
 #Команды
