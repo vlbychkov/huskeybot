@@ -44,7 +44,9 @@ def lookcommand(message):
 		cur=con.cursor()
 		cur.execute("SELECT * FROM CC")
 		for row in cur.fetchall():
-			if row[1] not in City:
+			if len(row)==0:
+				bot.send_message(message.chat.id, "В Базе данных нет команд вообще. ")
+			elif row[1] not in City:
 				City.append(row[1])
 		print(City)
 		for i in City:
