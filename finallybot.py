@@ -44,7 +44,7 @@ def lookcommand(message):
 		cur=con.cursor()
 		cur.execute("SELECT * FROM CC")
 		for row in cur.fetchall():
-			elif row[1] not in City:
+			if row[1] not in City:
 				City.append(row[1])
 		print(City)
 		for i in City:
